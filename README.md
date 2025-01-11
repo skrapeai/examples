@@ -18,5 +18,5 @@ Feel free to contribute your own examples by submitting a pull request. Make sur
 
 For questions and support regarding Skrape.AI, visit:
 
-- [Documentation](https://docs.skrape.ai)
+- [Documentation](https://skrape.ai/reference)
 - [Website](https://skrape.ai)
