@@ -19,7 +19,7 @@ const schema = z.object({
         storyId: z.number().describe("The ID of the story"),
       })
     )
-    .min(10)
+    .min(20)
     .max(30),
 });
 
