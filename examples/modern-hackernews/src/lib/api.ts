@@ -1,11 +1,9 @@
-const API_KEY = import.meta.env.PUBLIC_SKRAPE_API_KEY;
-
+import { Skrape, SkrapeError } from "skrape-js";
 import { z } from "zod";
-import { zodToJsonSchema } from "zod-to-json-schema";
 
-if (!API_KEY) {
-  throw new Error("PUBLIC_SKRAPE_API_KEY is not set in environment variables");
-}
+const skrape = new Skrape({
+  apiKey: import.meta.env.PUBLIC_SKRAPE_API_KEY,
+});
 
 const schema = z.object({
   topStories: z
@@ -27,29 +25,19 @@ export type HackerNewsStory = z.infer<typeof schema>["topStories"][number];
 
 export async function fetchHackerNewsStories(): Promise<HackerNewsStory[]> {
   try {
-    const response = await fetch("https://skrape.ai/api/extract", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        url: "https://news.ycombinator.com",
-        schema: zodToJsonSchema(schema),
-      }),
-    });
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(
-        `Failed to fetch stories: ${response.status} ${errorText}`
-      );
-    }
-
-    const data = await response.json();
-    return data.result.topStories ?? [];
+    const result = await skrape.extract("https://news.ycombinator.com", schema);
+    return result.topStories ?? [];
   } catch (error) {
-    console.error("API error:", error);
+    if (error instanceof SkrapeError) {
+      console.error(
+        "Skrape API error:",
+        error.message,
+        "Status:",
+        error.status
+      );
+    } else {
+      console.error("Unexpected error:", error);
+    }
     throw error;
   }
 }
