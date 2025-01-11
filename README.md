@@ -5,6 +5,7 @@ This repository contains example projects demonstrating various use cases and im
 ## Examples
 
 - [Modern HackerNews](./examples/modern-hackernews) - A modern UI implementation of HackerNews using the skrape.ai extract route to extract structured data.
+- [Wikipedia AI Assistant](./examples/wikipedia-ai) - A Streamlit-based chat interface that uses OpenAI's GPT model to answer questions based on Wikipedia content, using markdown route to convert Wikipedia HTML to markdown.
 
 ## Getting Started
 
