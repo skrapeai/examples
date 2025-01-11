@@ -4,7 +4,7 @@ This repository contains example projects demonstrating various use cases and im
 
 ## Examples
 
-- [Modern HackerNews](./examples/modern-hackernews) - A modern UI implementation of HackerNews using Skrape.AI to fetch and display data.
+- [Modern HackerNews](./examples/modern-hackernews) - A modern UI implementation of HackerNews using the skrape.ai extract route to extract structured data.
 
 ## Getting Started
 
