@@ -6,6 +6,8 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./App.css";
 
+document.title = "Modern HackerNews";
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {

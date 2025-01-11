@@ -1,5 +1,5 @@
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { type HackerNewsStory, fetchHackerNewsStories } from "./lib/api";
 
 function StoryList() {
@@ -89,7 +89,14 @@ function StoryList() {
                 <span className="text-gray-400">•</span>
                 <span>by {story.author}</span>
                 <span className="text-gray-400">•</span>
-                <span>{story.commentCount} comments</span>
+                <a
+                  href={`https://news.ycombinator.com/item?id=${story.storyId}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-orange-500 transition-colors"
+                >
+                  {story.commentCount} comments
+                </a>
               </div>
             </div>
           </div>
@@ -100,13 +107,33 @@ function StoryList() {
 }
 
 const App = () => {
+  const queryClient = useQueryClient();
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
       <header className="bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg sticky top-0 z-10">
-        <div className="max-w-4xl mx-auto px-4 py-3">
+        <div className="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
           <h1 className="text-2xl font-bold tracking-tight">
             Modern HackerNews
           </h1>
+          <div className="relative group">
+            <button
+              onClick={() => {
+                queryClient.clear();
+                localStorage.clear();
+                window.location.reload();
+              }}
+              className="px-3 py-1 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-lg text-sm transition-colors"
+            >
+              Flush Cache
+            </button>
+            <div className="absolute opacity-0 invisible group-hover:opacity-100 group-hover:visible top-full mt-2 left-1/2 -translate-x-1/2 transition-all duration-200 ease-out transform group-hover:translate-y-0 translate-y-1">
+              <div className="bg-gray-900 text-white text-xs px-2 py-1 rounded shadow-lg whitespace-nowrap">
+                Clear cached data and fetch fresh stories
+                <div className="absolute bottom-full left-1/2 -translate-x-1/2 -mb-px border-4 border-transparent border-b-gray-900" />
+              </div>
+            </div>
+          </div>
         </div>
       </header>
       <main className="mt-6 px-4 pb-20">
