@@ -1,6 +1,6 @@
 # Wikipedia AI Assistant
 
-A Streamlit-based chat interface that uses OpenAI's GPT model to answer questions based on Wikipedia content. Uses Skrape.ai to convert Wikipedia pages to markdown for better AI processing.
+A Streamlit-based chat interface that uses Groq's LLM to answer questions based on Wikipedia content. Uses Skrape.ai to convert Wikipedia pages to markdown for better AI processing.
 
 ![Preview](assets/preview.gif)
 
@@ -9,7 +9,7 @@ A Streamlit-based chat interface that uses OpenAI's GPT model to answer question
 1. Create a `.env` file in the project root with your API keys:
 
 ```bash
-OPENAI_API_KEY=your_openai_api_key_here
+GROQ_API_KEY=your_groq_api_key_here
 SKRAPE_API_KEY=your_skrape_api_key_here
 ```
 
@@ -31,7 +31,7 @@ streamlit run app.py
 2. The app will:
    - Search Wikipedia for relevant articles
    - Convert the Wikipedia page to markdown using Skrape.ai
-   - Use GPT to generate a response based on the markdown content
+   - Use Groq's LLM to generate a response based on the markdown content
 3. The chat history is maintained during your session
 
 ## Features
@@ -39,5 +39,5 @@ streamlit run app.py
 - Real-time Wikipedia search
 - HTML to Markdown conversion using Skrape.ai
 - Chat interface with message history
-- AI-powered responses based on Wikipedia content
+- AI-powered responses using Groq's LLM
 - Markdown support for better readability

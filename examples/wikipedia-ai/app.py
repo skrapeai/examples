@@ -3,13 +3,13 @@ import json
 import time
 import requests
 import streamlit as st
-from openai import OpenAI
+from groq import Groq
 from dotenv import load_dotenv
 
 load_dotenv()
 
-# Initialize OpenAI client
-client = OpenAI()
+# Initialize Groq client
+client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 SKRAPE_API_KEY = os.getenv("SKRAPE_API_KEY")
 
 def log_debug_info(title, content):
@@ -75,12 +75,12 @@ def search_wikipedia(query):
 def get_ai_response(query, context):
     start_time = time.time()
     messages = [
-        {"role": "system", "content": "You are a helpful assistant that answers questions based on Wikipedia content. Keep answers concise and relevant."},
+        {"role": "system", "content": "You are a helpful assistant that answers questions based on Wikipedia content. Keep answers concise and relevant. And just answer the question, don't include any other information."},
         {"role": "user", "content": f"Based on the following Wikipedia content, please answer this question: {query}\n\nContent: {context}"}
     ]
     
     response = client.chat.completions.create(
-        model="gpt-4o-mini",
+        model="llama-3.3-70b-versatile",
         messages=messages,
         temperature=0.7,
         max_tokens=500
